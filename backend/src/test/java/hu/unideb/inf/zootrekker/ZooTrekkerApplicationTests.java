@@ -1,10 +1,10 @@
-package hu.unideb.inf.tabletrekker;
+package hu.unideb.inf.zootrekker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TableTrekkerApplicationTests {
+class ZooTrekkerApplicationTests {
 
 	@Test
 	void contextLoads() {
