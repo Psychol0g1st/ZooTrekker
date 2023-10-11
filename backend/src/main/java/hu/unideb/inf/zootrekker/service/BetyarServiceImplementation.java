@@ -27,17 +27,23 @@ public class BetyarServiceImplementation implements BetyarService{
     @Override
     public Betyar updateBetyar(Betyar betyar, Long betyarId) {
         Betyar ujBetyar = betyarRepository.findById(betyarId).get();
+        
         if (Objects.nonNull(betyar.getNev()) && !"".equalsIgnoreCase(betyar.getNev())) {
             ujBetyar.setNev(betyar.getNev());
         }
 
-        try {
-            ujBetyar.setOrr(betyar.getOrr());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (betyar.getOrr() != null) {
+            try {
+                ujBetyar.setOrr(betyar.getOrr());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        ujBetyar.setStrong(betyar.isStrong());
+        if (betyar.getIsStrong() != null)
+        {
+            ujBetyar.setIsStrong(betyar.getIsStrong());
+        }
 
         return betyarRepository.save(ujBetyar);
     }

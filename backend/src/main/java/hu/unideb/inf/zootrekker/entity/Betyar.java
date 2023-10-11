@@ -18,8 +18,8 @@ public class Betyar {
     @GeneratedValue
     private long id;
     private String nev;
-    private boolean isStrong;
-    private float orr; //Orr átmérő (cm)
+    private Boolean isStrong;
+    private Float orr; //Orr átmérő (cm)
 
     public void setOrr(float n) throws Exception
     {
