@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package hu.unideb.inf.zootrekker.service;
 
-import com.example.demo.entity.Betyar;
+import hu.unideb.inf.zootrekker.entity.Betyar;
 
 import java.util.List;
 

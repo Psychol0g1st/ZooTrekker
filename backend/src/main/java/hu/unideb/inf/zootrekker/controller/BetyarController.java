@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package hu.unideb.inf.zootrekker.controller;
 
-import com.example.demo.entity.Betyar;
-import com.example.demo.service.BetyarService;
+import hu.unideb.inf.zootrekker.entity.Betyar;
+import hu.unideb.inf.zootrekker.service.BetyarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

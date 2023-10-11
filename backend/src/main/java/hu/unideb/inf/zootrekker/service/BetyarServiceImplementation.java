@@ -1,7 +1,7 @@
-package com.example.demo.service;
+package hu.unideb.inf.zootrekker.service;
 
-import com.example.demo.entity.Betyar;
-import com.example.demo.repository.BetyarRepository;
+import hu.unideb.inf.zootrekker.entity.Betyar;
+import hu.unideb.inf.zootrekker.repository.BetyarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

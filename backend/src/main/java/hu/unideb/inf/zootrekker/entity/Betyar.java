@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package hu.unideb.inf.zootrekker.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

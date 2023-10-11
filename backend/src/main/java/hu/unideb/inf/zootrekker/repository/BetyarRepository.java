@@ -1,9 +1,9 @@
-package com.example.demo.repository;
+package hu.unideb.inf.zootrekker.repository;
 
-import com.example.demo.entity.Betyar;
+import hu.unideb.inf.zootrekker.entity.Betyar;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.hibernate.dialect.MariaDBDialect;
+
 @Repository
 public interface BetyarRepository extends JpaRepository<Betyar, Long> {}
