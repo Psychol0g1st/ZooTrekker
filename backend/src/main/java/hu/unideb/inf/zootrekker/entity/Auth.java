@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @NoArgsConstructor
@@ -16,9 +17,12 @@ import java.util.List;
 public class Auth {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
+    @Column(unique = true)
     private String username;
+
     private String password;
     private Boolean verified;
-    // TODO private timestamp;
+    private Timestamp lastLogin;
+    private Timestamp verifiedAt;
 }

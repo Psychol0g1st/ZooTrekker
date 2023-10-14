@@ -12,11 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="AnimalDiet")
+@Table(name="Species")
 public class Species {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
+    @Column(unique = true)
     private String name;
-
 }
