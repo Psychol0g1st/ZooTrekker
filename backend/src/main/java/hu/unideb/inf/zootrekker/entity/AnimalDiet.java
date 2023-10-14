@@ -12,13 +12,19 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="AnimalDiet")
+@Table(name="animal_diet")
 public class AnimalDiet {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int substanceId; // ?
-    private EWeekdays weekdays;
-    // TODO private List<String> hours;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_animal_diet_Id", referencedColumnName = "id")
+    private List<Substance> substance;
+    private String weekdays;
+
+    /*
+     ;-vel elválasztva
+     */
+    private String hours;
     private Float amount;
 }

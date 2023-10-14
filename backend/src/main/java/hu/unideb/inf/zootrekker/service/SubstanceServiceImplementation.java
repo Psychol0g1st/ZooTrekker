@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SubstanceServiceImplementation implements SubstanceService{
@@ -24,9 +25,26 @@ public class SubstanceServiceImplementation implements SubstanceService{
     }
 
     @Override
-    public Substance updateSubstance(Substance Substance, Integer SubstanceId) {
-        //TODO
-        return new Substance();
+    public Substance updateSubstance(Substance substance, Integer substanceId) {
+        Substance ujSubstance = substanceRepository.findById(substanceId).get();
+
+        if (Objects.nonNull(substance.getName()) && !"".equalsIgnoreCase(substance.getName())) {
+            ujSubstance.setName(substance.getName());
+        }
+
+        if (Objects.nonNull(substance.getUnit()) && !"".equalsIgnoreCase(substance.getUnit())) {
+            ujSubstance.setUnit(substance.getUnit());
+        }
+
+        if (Objects.nonNull(substance.getStock())) {
+            ujSubstance.setStock(substance.getStock());
+        }
+
+        if (Objects.nonNull(substance.getType())) {
+            ujSubstance.setType(substance.getType());
+        }
+
+        return substanceRepository.save(ujSubstance);
     }
 
     @Override

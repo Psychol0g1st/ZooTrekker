@@ -1,10 +1,7 @@
 package hu.unideb.inf.zootrekker.entity;
 
 import hu.unideb.inf.zootrekker.enums.ESubstance;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name="Substances")
 public class Substance {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private ESubstance type;
     String name;
