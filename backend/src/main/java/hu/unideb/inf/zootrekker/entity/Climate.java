@@ -20,6 +20,6 @@ public class Climate {
     private Long id;
     @Column(unique = true)
     private String name;
-    private float temperature;
-    private float humidity;
+    private Float temperature;
+    private Float humidity;
 }

@@ -16,6 +16,6 @@ public class Cage {
     private Climate climate;
     @Column(unique = true)
     private String name;
-    private float positionX;
-    private float positionY;
+    private Float positionX;
+    private Float positionY;
 }
