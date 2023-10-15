@@ -22,4 +22,7 @@ public class Climate {
     private String name;
     private Float temperature;
     private Float humidity;
+
+    @ManyToOne(mappedBy = "Cage")
+    private Cage cage;
 }

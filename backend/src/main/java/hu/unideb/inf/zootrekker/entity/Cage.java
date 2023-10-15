@@ -15,7 +15,8 @@ public class Cage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToMany(cascade = CascadeType.ALL)
-    private Climate climate;
+    @JoinColumn(name = "climate_fk_key", referencedColumnName = "id")
+    private List<Climate> climate;
     @Column(unique = true)
     private String name;
     private Float positionX;
