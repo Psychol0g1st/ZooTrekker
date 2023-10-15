@@ -14,7 +14,7 @@ public class Cage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany(cascade = Cascadetype.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Climate climate;
     @Column(unique = true)
     private String name;
