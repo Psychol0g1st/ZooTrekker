@@ -20,7 +20,6 @@ public class Auth {
     private Long id;
     @Column(unique = true)
     private String username;
-
     private String password;
     private Boolean verified;
     private Timestamp lastLogin;
