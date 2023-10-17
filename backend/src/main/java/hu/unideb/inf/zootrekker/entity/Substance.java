@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +20,15 @@ public class Substance {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private ESubstance type;
-    String name;
-    String unit;
-    Integer stock;
+    private String name;
+    private String unit;
+    private Integer stock;
+    @CreationTimestamp
+    @Column(name="created_at", updatable = false, nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp createdAt;
+    @Column(name="updated_at")
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp updatedAt;
 }
