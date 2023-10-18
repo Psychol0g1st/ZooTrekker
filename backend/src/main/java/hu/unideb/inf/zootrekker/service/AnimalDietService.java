@@ -8,6 +8,7 @@ public interface AnimalDietService {
     // Save AnimalDiet
     AnimalDiet saveAnimalDiet(AnimalDiet AnimalDiet);
 
+    AnimalDiet getAnimalDietById(Integer animalDietId);
     // Read operation
     List<AnimalDiet> getAllAnimalDiets();
 

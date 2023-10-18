@@ -23,6 +23,11 @@ public class SubstanceController {
         return substanceService.getAllSubstances();
     }
 
+    @GetMapping("/get/{id}")
+    public Substance getSubstanceById(@PathVariable("id") Integer substanceId) {
+        return substanceService.getSubstanceById(substanceId);
+    }
+
     @PutMapping("/update/{id}")
     public Substance updateSubstance(@RequestBody Substance substance, @PathVariable("id") Integer substanceId) {
         return substanceService.updateSubstance(substance, substanceId);

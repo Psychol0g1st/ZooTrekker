@@ -8,6 +8,8 @@ public interface SubstanceService {
     // Save Substance
     Substance saveSubstance(Substance Substance);
 
+    Substance getSubstanceById(Integer SubstanceId);
+
     // Read operation
     List<Substance> getAllSubstances();
 

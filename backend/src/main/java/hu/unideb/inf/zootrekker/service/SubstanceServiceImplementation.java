@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Service
@@ -20,9 +21,18 @@ public class SubstanceServiceImplementation implements SubstanceService{
     }
 
     @Override
+    public Substance getSubstanceById(Integer SubstanceId) {
+        if (substanceRepository.findById(SubstanceId).isPresent()) {
+            return substanceRepository.findById(SubstanceId).get();
+        }
+        return null;
+    }
+
+    @Override
     public List<Substance> getAllSubstances() {
         return substanceRepository.findAll();
     }
+
 
     @Override
     public Substance updateSubstance(Substance substance, Integer substanceId) {

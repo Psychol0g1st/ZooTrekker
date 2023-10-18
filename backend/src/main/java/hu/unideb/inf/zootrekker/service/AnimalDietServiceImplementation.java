@@ -20,6 +20,14 @@ public class AnimalDietServiceImplementation implements AnimalDietService{
     }
 
     @Override
+    public AnimalDiet getAnimalDietById(Integer animalDietId) {
+        if (animalDietRepository.findById(animalDietId).isPresent()) {
+            return animalDietRepository.findById(animalDietId).get();
+        }
+        return null;
+    }
+
+    @Override
     public List<AnimalDiet> getAllAnimalDiets() {
         return animalDietRepository.findAll();
     }

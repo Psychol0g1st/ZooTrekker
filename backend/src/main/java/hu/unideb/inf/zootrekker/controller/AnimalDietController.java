@@ -18,6 +18,11 @@ public class AnimalDietController {
         return animalDietService.saveAnimalDiet(animalDiet);
     }
 
+    @GetMapping("/get/{id}")
+    public AnimalDiet getAnimalDietById(@PathVariable("id") Integer animalDietId) {
+        return animalDietService.getAnimalDietById(animalDietId);
+    }
+
     @GetMapping("/getall")
     public List<AnimalDiet> getAllAnimalDiets() {
         return animalDietService.getAllAnimalDiets();
