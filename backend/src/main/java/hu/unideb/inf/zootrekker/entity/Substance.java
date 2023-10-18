@@ -19,14 +19,20 @@ public class Substance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private ESubstance type;
+
     private String name;
+
     private String unit;
+
     private Integer stock;
+
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;
+
     @Column(name="updated_at")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

@@ -20,17 +20,25 @@ public class Auth {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(unique = true)
     private String username;
+
     private String password;
+
     private Boolean verified;
+
+    @Column(name = "last_login")
     private Timestamp lastLogin;
+
+    @Column(name = "verified_at")
     private Timestamp verifiedAt;
-    
+
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;
+
     @Column(name="updated_at")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

@@ -21,6 +21,7 @@ public class Species {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(unique = true)
     private String name;
 
@@ -28,6 +29,7 @@ public class Species {
     @Column(name="created_at", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;
+
     @Column(name="updated_at")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

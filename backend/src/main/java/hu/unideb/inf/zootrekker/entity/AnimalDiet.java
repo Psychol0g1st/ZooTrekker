@@ -20,20 +20,25 @@ public class AnimalDiet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_animal_diet_Id", referencedColumnName = "id")
     private List<Substance> substance;
+
     private String weekdays;
 
     /*
      ;-vel elválasztva
      */
     private String hours;
+
     private Float amount;
+
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;
+
     @Column(name="updated_at")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
