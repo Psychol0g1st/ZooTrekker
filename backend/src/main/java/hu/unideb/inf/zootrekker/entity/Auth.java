@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Auth")
+@Table(name="auth")
 public class Auth {
     @Id
     @GeneratedValue

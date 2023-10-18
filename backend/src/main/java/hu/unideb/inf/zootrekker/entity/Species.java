@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Species")
+@Table(name="species")
 public class Species {
     @Id
     @GeneratedValue

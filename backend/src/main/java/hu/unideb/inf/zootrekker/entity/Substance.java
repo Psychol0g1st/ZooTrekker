@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="Substances")
+@Table(name="substance")
 public class Substance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
