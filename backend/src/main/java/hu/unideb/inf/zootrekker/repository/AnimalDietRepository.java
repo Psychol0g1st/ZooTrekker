@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface AnimalDietRepository extends JpaRepository<AnimalDiet, Integer> {}
+public interface AnimalDietRepository extends JpaRepository<AnimalDiet, Long> {}

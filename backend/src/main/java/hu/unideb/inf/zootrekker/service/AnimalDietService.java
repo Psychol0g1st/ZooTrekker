@@ -8,13 +8,13 @@ public interface AnimalDietService {
     // Save AnimalDiet
     AnimalDiet saveAnimalDiet(AnimalDiet AnimalDiet);
 
-    AnimalDiet getAnimalDietById(Integer animalDietId);
+    AnimalDiet getAnimalDietById(Long animalDietId);
     // Read operation
     List<AnimalDiet> getAllAnimalDiets();
 
     // Update operation
-    AnimalDiet updateAnimalDiet(AnimalDiet AnimalDiet, Integer AnimalDietId);
+    AnimalDiet updateAnimalDiet(AnimalDiet AnimalDiet, Long AnimalDietId);
 
     // Delete operation
-    void deleteAnimalDietById(Integer AnimalDietId);
+    void deleteAnimalDietById(Long AnimalDietId);
 }

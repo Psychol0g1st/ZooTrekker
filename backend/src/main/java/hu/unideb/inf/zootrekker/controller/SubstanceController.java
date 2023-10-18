@@ -24,17 +24,17 @@ public class SubstanceController {
     }
 
     @GetMapping("/get/{id}")
-    public Substance getSubstanceById(@PathVariable("id") Integer substanceId) {
+    public Substance getSubstanceById(@PathVariable("id") Long substanceId) {
         return substanceService.getSubstanceById(substanceId);
     }
 
     @PutMapping("/update/{id}")
-    public Substance updateSubstance(@RequestBody Substance substance, @PathVariable("id") Integer substanceId) {
+    public Substance updateSubstance(@RequestBody Substance substance, @PathVariable("id") Long substanceId) {
         return substanceService.updateSubstance(substance, substanceId);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteSubstance(@PathVariable("id") Integer substanceId) {
+    public String deleteSubstance(@PathVariable("id") Long substanceId) {
         substanceService.deleteSubstanceById(substanceId);
         return "Deleted successfully!";
     }

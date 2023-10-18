@@ -21,7 +21,7 @@ public class SubstanceServiceImplementation implements SubstanceService{
     }
 
     @Override
-    public Substance getSubstanceById(Integer SubstanceId) {
+    public Substance getSubstanceById(Long SubstanceId) {
         if (substanceRepository.findById(SubstanceId).isPresent()) {
             return substanceRepository.findById(SubstanceId).get();
         }
@@ -35,7 +35,7 @@ public class SubstanceServiceImplementation implements SubstanceService{
 
 
     @Override
-    public Substance updateSubstance(Substance substance, Integer substanceId) {
+    public Substance updateSubstance(Substance substance, Long substanceId) {
         Substance ujSubstance = substanceRepository.findById(substanceId).get();
 
         if (Objects.nonNull(substance.getName()) && !"".equalsIgnoreCase(substance.getName())) {
@@ -58,7 +58,7 @@ public class SubstanceServiceImplementation implements SubstanceService{
     }
 
     @Override
-    public void deleteSubstanceById(Integer SubstanceId) {
+    public void deleteSubstanceById(Long SubstanceId) {
         substanceRepository.deleteById(SubstanceId);
     }
 }

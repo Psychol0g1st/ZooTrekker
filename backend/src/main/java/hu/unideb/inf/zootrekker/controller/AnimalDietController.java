@@ -19,7 +19,7 @@ public class AnimalDietController {
     }
 
     @GetMapping("/get/{id}")
-    public AnimalDiet getAnimalDietById(@PathVariable("id") Integer animalDietId) {
+    public AnimalDiet getAnimalDietById(@PathVariable("id") Long animalDietId) {
         return animalDietService.getAnimalDietById(animalDietId);
     }
 
@@ -29,12 +29,12 @@ public class AnimalDietController {
     }
 
     @PutMapping("/update/{id}")
-    public AnimalDiet updateAnimalDiet(@RequestBody AnimalDiet animalDiet, @PathVariable("id") Integer animalDietId) {
+    public AnimalDiet updateAnimalDiet(@RequestBody AnimalDiet animalDiet, @PathVariable("id") Long animalDietId) {
         return animalDietService.updateAnimalDiet(animalDiet, animalDietId);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteAnimalDiet(@PathVariable("id") Integer animalDietId) {
+    public String deleteAnimalDiet(@PathVariable("id") Long animalDietId) {
         animalDietService.deleteAnimalDietById(animalDietId);
         return "Deleted successfully!";
     }

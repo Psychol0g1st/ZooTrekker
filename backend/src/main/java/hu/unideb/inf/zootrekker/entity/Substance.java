@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 public class Substance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private ESubstance type;
     private String name;
     private String unit;

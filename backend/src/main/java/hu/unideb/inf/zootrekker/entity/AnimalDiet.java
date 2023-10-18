@@ -19,7 +19,7 @@ import java.util.List;
 public class AnimalDiet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_animal_diet_Id", referencedColumnName = "id")
     private List<Substance> substance;

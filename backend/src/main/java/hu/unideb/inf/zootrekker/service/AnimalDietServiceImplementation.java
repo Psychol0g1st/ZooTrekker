@@ -20,7 +20,7 @@ public class AnimalDietServiceImplementation implements AnimalDietService{
     }
 
     @Override
-    public AnimalDiet getAnimalDietById(Integer animalDietId) {
+    public AnimalDiet getAnimalDietById(Long animalDietId) {
         if (animalDietRepository.findById(animalDietId).isPresent()) {
             return animalDietRepository.findById(animalDietId).get();
         }
@@ -33,7 +33,7 @@ public class AnimalDietServiceImplementation implements AnimalDietService{
     }
 
     @Override
-    public AnimalDiet updateAnimalDiet(AnimalDiet animalDiet, Integer AnimalDietId) {
+    public AnimalDiet updateAnimalDiet(AnimalDiet animalDiet, Long AnimalDietId) {
         AnimalDiet ujAD = animalDietRepository.findById(AnimalDietId).get();
 
         if (Objects.nonNull(animalDiet.getWeekdays()) && !"".equalsIgnoreCase(animalDiet.getWeekdays())) {
@@ -56,7 +56,7 @@ public class AnimalDietServiceImplementation implements AnimalDietService{
     }
 
     @Override
-    public void deleteAnimalDietById(Integer AnimalDietId) {
+    public void deleteAnimalDietById(Long AnimalDietId) {
         animalDietRepository.deleteById(AnimalDietId);
     }
 }

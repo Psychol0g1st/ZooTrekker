@@ -8,14 +8,14 @@ public interface SubstanceService {
     // Save Substance
     Substance saveSubstance(Substance Substance);
 
-    Substance getSubstanceById(Integer SubstanceId);
+    Substance getSubstanceById(Long SubstanceId);
 
     // Read operation
     List<Substance> getAllSubstances();
 
     // Update operation
-    Substance updateSubstance(Substance Substance, Integer SubstanceId);
+    Substance updateSubstance(Substance Substance, Long SubstanceId);
 
     // Delete operation
-    void deleteSubstanceById(Integer SubstanceId);
+    void deleteSubstanceById(Long SubstanceId);
 }
