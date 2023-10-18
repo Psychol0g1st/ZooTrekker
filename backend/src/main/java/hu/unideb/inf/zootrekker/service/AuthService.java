@@ -9,6 +9,7 @@ public interface AuthService {
     Auth saveAuth(Auth Auth);
 
     // Read operation
+    Auth getAuthById(Long authId);
     List<Auth> getAllAuths();
 
     // Update operation

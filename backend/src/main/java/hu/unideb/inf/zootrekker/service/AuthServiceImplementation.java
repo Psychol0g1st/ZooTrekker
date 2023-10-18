@@ -22,6 +22,14 @@ public class AuthServiceImplementation implements AuthService{
     }
 
     @Override
+    public Auth getAuthById(Long authId) {
+        if (authRepository.findById(authId).isPresent()) {
+            return authRepository.findById(authId).get();
+        }
+        return null;
+    }
+
+    @Override
     public List<Auth> getAllAuths() {
         return (List<Auth>) authRepository.findAll();
     }

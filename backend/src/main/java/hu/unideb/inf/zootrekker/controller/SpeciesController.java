@@ -17,6 +17,11 @@ public class SpeciesController {
         return speciesService.saveSpecies(species);
     }
 
+    @GetMapping("/get/{id}")
+    public Species getSpeciesById(@PathVariable("id") Long speciesId) {
+        return speciesService.getSpeciesById(speciesId);
+    }
+
     @GetMapping("/getall")
     public List<Species> getAllSpeciess()
     {

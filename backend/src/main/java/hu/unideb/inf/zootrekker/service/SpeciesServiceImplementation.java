@@ -20,6 +20,14 @@ public class SpeciesServiceImplementation implements SpeciesService{
     }
 
     @Override
+    public Species getSpeciesById(Long speciesId) {
+        if (speciesRepository.findById(speciesId).isPresent()) {
+            return  speciesRepository.findById(speciesId).get();
+        }
+        return null;
+    }
+
+    @Override
     public List<Species> getAllSpeciess() {
         return (List<Species>) speciesRepository.findAll();
     }

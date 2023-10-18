@@ -8,6 +8,7 @@ public interface SpeciesService {
     Species saveSpecies(Species species);
 
     // Read operation
+    Species getSpeciesById(Long speciesId);
     List<Species> getAllSpeciess();
 
     // Update operation

@@ -17,6 +17,11 @@ public class AuthController {
         return authService.saveAuth(auth);
     }
 
+    @GetMapping("/get/{id}")
+    public Auth getAuthById(@PathVariable("id") Long authId) {
+        return authService.getAuthById(authId);
+    }
+
     @GetMapping("/getall")
     public List<Auth> getAllAuths()
     {
