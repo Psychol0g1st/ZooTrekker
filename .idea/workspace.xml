@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d68e139-c657-4e7d-a0b5-f3a35b5d79b3" name="Changes" comment="OneToMany">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/controller/CageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/controller/CageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/controller/ClimateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/controller/ClimateController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/entity/Cage.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/entity/Cage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/entity/Climate.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/entity/Climate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/repository/CageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/repository/CageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/repository/ClimateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/repository/ClimateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/CageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/CageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/CageServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/CageServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/ClimateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/ClimateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/ClimateServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/hu/unideb/inf/zootrekker/service/ClimateServiceImplementation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

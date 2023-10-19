@@ -1,8 +1,6 @@
 package hu.unideb.inf.zootrekker.service;
 
 import hu.unideb.inf.zootrekker.entity.Climate;
-import hu.unideb.inf.zootrekker.entity.Climate;
-import hu.unideb.inf.zootrekker.entity.Climate;
 import hu.unideb.inf.zootrekker.repository.ClimateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,48 +9,54 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class ClimateServiceImplementation implements ClimateService{
+public class ClimateServiceImplementation implements ClimateService {
 
     @Autowired
-    private ClimateRepository climateRepositoryRepository;
+    private ClimateRepository climateRepository;
 
     @Override
     public Climate saveClimate(Climate climate) {
-        return climateRepositoryRepository.save(climate);
+        return climateRepository.save(climate);
+    }
+
+    @Override
+    public Climate getClimateById(Long climateId) {
+        if (climateRepository.findById(climateId).isPresent()) {
+            return climateRepository.findById(climateId).get();
+        }
+        return null;
     }
 
     @Override
     public List<Climate> getAllClimates() {
-        return (List<Climate>) climateRepositoryRepository.findAll();
+        return climateRepository.findAll();
     }
 
     @Override
     public Climate updateClimate(Climate climate, Long climateId) {
-        Climate ujClimate = climateRepositoryRepository.findById(climateId).get();
+        Climate updatedClimate = climateRepository.findById(climateId).orElse(null);
 
-        if (Objects.nonNull(climate.getName()) && !"".equalsIgnoreCase(climate.getName())) {
-            ujClimate.setName(climate.getName());
-        }
-        if (climate.getTemperature() != null) {
-            try {
-                ujClimate.setTemperature(climate.getTemperature());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        if (updatedClimate != null) {
+            if (Objects.nonNull(climate.getHumidity())) {
+                updatedClimate.setHumidity(climate.getHumidity());
             }
-        }
-        if (climate.getHumidity() != null) {
-            try {
-                ujClimate.setHumidity(climate.getHumidity());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
 
-        return climateRepositoryRepository.save(ujClimate);
+            if (Objects.nonNull(climate.getTemperature())) {
+                updatedClimate.setTemperature(climate.getTemperature());
+            }
+
+            if (Objects.nonNull(climate.getName())) {
+                updatedClimate.setName(climate.getName());
+            }
+
+            // Save the updated climate to the repository
+            return climateRepository.save(updatedClimate);
+        }
+        return null;
     }
 
     @Override
     public void deleteClimateById(Long climateId) {
-        climateRepositoryRepository.deleteById(climateId);
+        climateRepository.deleteById(climateId);
     }
 }

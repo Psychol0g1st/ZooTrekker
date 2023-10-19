@@ -1,18 +1,26 @@
 package hu.unideb.inf.zootrekker.service;
 
 import hu.unideb.inf.zootrekker.entity.Cage;
+import hu.unideb.inf.zootrekker.entity.Climate;
+
 import java.util.List;
 
 public interface CageService {
-    // Save Species
+    // Save Cage
     Cage saveCage(Cage cage);
 
+    Cage getCageById(Long cageId);
+
     // Read operation
-    List<Cage> getAllCage();
+    List<Cage> getAllCages();
 
     // Update operation
-    Cage updateCage(Cage cage, Long CageId);
+    Cage updateCage(Cage cage, Long cageId);
 
     // Delete operation
-    void deleteCageById(Long CageId);
+    void deleteCageById(Long cageId);
+
+    // Custom methods for managing the relationship
+    void addClimateToCage(Long cageId, Climate climate);
+    Climate getClimateByCage(Long cageId);
 }
