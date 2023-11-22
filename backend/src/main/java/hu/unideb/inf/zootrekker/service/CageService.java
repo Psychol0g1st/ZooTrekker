@@ -21,6 +21,5 @@ public interface CageService {
     void deleteCageById(Long cageId);
 
     // Custom methods for managing the relationship
-    void addClimateToCage(Long cageId, Climate climate);
-    Climate getClimateByCage(Long cageId);
+
 }

@@ -19,10 +19,6 @@ public class Cage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "climate_id")
-    private Climate climate;
-
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,7 +29,10 @@ public class Cage {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
 
+    @Column(unique = true)
     private String name;
+
     private Float positionX;
+
     private Float positionY;
 }

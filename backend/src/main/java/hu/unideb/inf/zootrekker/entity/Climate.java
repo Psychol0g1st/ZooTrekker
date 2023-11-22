@@ -20,7 +20,8 @@ public class Climate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "climate")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_cage_id", referencedColumnName = "id")
     private List<Cage> cages;
 
     @CreationTimestamp
@@ -34,6 +35,9 @@ public class Climate {
     private Timestamp updatedAt;
 
     private Float humidity;
+
     private Float temperature;
+
+    @Column(unique = true)
     private String name;
 }

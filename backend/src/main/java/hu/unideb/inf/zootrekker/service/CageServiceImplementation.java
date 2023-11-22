@@ -38,10 +38,6 @@ public class CageServiceImplementation implements CageService {
         Cage updatedCage = cageRepository.findById(cageId).orElse(null);
 
         if (updatedCage != null) {
-            if (Objects.nonNull(cage.getClimate())) {
-                updatedCage.setClimate(cage.getClimate());
-            }
-
             if (Objects.nonNull(cage.getName())) {
                 updatedCage.setName(cage.getName());
             }
@@ -65,18 +61,4 @@ public class CageServiceImplementation implements CageService {
         cageRepository.deleteById(cageId);
     }
 
-    @Override
-    public void addClimateToCage(Long cageId, Climate climate) {
-        Cage cage = cageRepository.findById(cageId).orElse(null);
-        if (cage != null) {
-            cage.setClimate(climate);
-            cageRepository.save(cage);
-        }
-    }
-
-    @Override
-    public Climate getClimateByCage(Long cageId) {
-        Cage cage = cageRepository.findById(cageId).orElse(null);
-        return (cage != null) ? cage.getClimate() : null;
-    }
 }
