@@ -29,6 +29,9 @@ public class Cage {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
 
+    @ManyToOne
+    private Climate climate;
+
     @Column(unique = true)
     private String name;
 

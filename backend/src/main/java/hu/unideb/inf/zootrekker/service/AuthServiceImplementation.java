@@ -47,12 +47,6 @@ public class AuthServiceImplementation implements AuthService{
         if (Objects.nonNull(auth.getLastLogin())){
             ujAuth.setLastLogin(auth.getLastLogin());
         }
-        if (Objects.nonNull(auth.getVerifiedAt())) {
-            ujAuth.setVerifiedAt(auth.getVerifiedAt());
-        }
-        if (Objects.nonNull(auth.getVerified())) {
-            ujAuth.setVerified(auth.getVerified());
-        }
         
         return authRepository.save(ujAuth);
     }

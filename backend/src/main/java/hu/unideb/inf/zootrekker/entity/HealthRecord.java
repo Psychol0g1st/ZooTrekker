@@ -8,32 +8,26 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "climate")
-public class Climate {
+@Table(name="health_record")
+public class HealthRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    private String description;
+
     @CreationTimestamp
-    @Column(name = "created_at", updatable = false, nullable = false)
+    @Column(name="created_at", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name="updated_at")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
-
-    private Float humidity;
-
-    private Float temperature;
-
-    @Column(unique = true)
-    private String name;
 }

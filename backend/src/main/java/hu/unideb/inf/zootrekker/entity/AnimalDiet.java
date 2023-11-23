@@ -9,7 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,9 +21,9 @@ public class AnimalDiet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_animal_diet_Id", referencedColumnName = "id")
-    private List<Substance> substance;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_substance_Id", referencedColumnName = "id")
+    private Substance substance;
 
     private String weekdays;
 
