@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/cage")
+@RequestMapping("/cages")
+@CrossOrigin
 @RestController
 public class CageController {
     @Autowired

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/healthrecord")
+@RequestMapping("/healthrecords")
+@CrossOrigin
 public class HealthRecordController {
     @Autowired
     private HealthRecordService healthRecordService;

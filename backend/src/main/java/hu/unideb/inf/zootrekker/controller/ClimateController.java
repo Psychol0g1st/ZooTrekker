@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/climate")
+@RequestMapping("/climates")
 @RestController
+@CrossOrigin
 public class ClimateController {
     @Autowired
     private ClimateService climateService;

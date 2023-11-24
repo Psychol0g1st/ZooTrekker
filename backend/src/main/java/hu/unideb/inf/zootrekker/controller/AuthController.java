@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth")
+@CrossOrigin
+@RequestMapping("/auths")
 public class AuthController {
     @Autowired private AuthService authService;
     @PostMapping("/add")

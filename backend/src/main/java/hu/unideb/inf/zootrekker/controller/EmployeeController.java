@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 @RestController
+@CrossOrigin
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
