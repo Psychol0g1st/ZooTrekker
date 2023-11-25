@@ -18,7 +18,7 @@ export default function DropDown() {
   return (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Fasz
+        Pelda*
       </Dropdown.Toggle>
         
       <Dropdown.Menu>

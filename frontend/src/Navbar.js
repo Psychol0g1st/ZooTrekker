@@ -1,6 +1,6 @@
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {ReactComponent as Logo} from './icons/LOGO.svg'
-import DropDown from "./DropDown";
+import DropDown from "./dropdowns/DropDown";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 
