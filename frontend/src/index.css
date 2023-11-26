@@ -1,3 +1,10 @@
+*{
+  box-sizing: border-box;
+}
+html, body{
+  width: 100vw;
+  height: 100vh;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +12,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  bottom: .5rem;
+  right: .5rem;
 }
 
 code {
