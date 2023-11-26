@@ -1,6 +1,5 @@
 package hu.unideb.inf.zootrekker.entity;
 
-import hu.unideb.inf.zootrekker.enums.EWeekdays;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,29 +9,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="animal_diet")
-public class AnimalDiet {
+@Table(name="health_record")
+public class HealthRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_substance_Id", referencedColumnName = "id")
-    private Substance substance;
-
-    private String weekdays;
-
-    /*
-     ;-vel elválasztva
-     */
-    private String hours;
-
-    private Float amount;
+    private String description;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)

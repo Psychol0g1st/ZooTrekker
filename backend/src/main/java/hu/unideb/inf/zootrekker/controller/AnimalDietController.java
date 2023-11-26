@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/animaldiet")
+@RequestMapping("/animaldiets")
 @RestController
+@CrossOrigin
 public class AnimalDietController {
     @Autowired
     private AnimalDietService animalDietService;

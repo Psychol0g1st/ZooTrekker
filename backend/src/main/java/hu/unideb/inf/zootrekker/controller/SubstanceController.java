@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/substance")
+@RequestMapping("/substances")
 @RestController
+@CrossOrigin
 public class SubstanceController {
     @Autowired
     private SubstanceService substanceService;

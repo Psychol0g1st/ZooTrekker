@@ -3,6 +3,7 @@ package hu.unideb.inf.zootrekker.entity;
 import hu.unideb.inf.zootrekker.enums.EWeekdays;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
+@Builder
 @Table(name="auth")
 public class Auth {
     @Id
@@ -26,13 +28,8 @@ public class Auth {
 
     private String password;
 
-    private Boolean verified;
-
     @Column(name = "last_login")
     private Timestamp lastLogin;
-
-    @Column(name = "verified_at")
-    private Timestamp verifiedAt;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)

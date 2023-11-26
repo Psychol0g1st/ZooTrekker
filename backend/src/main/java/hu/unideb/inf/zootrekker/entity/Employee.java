@@ -1,6 +1,6 @@
 package hu.unideb.inf.zootrekker.entity;
 
-import hu.unideb.inf.zootrekker.enums.EWeekdays;
+import hu.unideb.inf.zootrekker.enums.ERole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,30 +9,42 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="animal_diet")
-public class AnimalDiet {
+@Table(name="employee")
+public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_substance_Id", referencedColumnName = "id")
-    private Substance substance;
+    @OneToOne
+    @JoinColumn(name = "auth_id", referencedColumnName = "id")
+    private Auth auth;
 
-    private String weekdays;
+    private String firstName;
 
-    /*
-     ;-vel elválasztva
-     */
-    private String hours;
+    private String lastName;
 
-    private Float amount;
+    private ERole role;
+
+    private String position;
+
+    private Float salary;
+
+    private String workDays; // separated by commas :
+
+    private String workStartHour;
+
+    private String workEndHour;
+
+    @ManyToMany( fetch = FetchType.LAZY)
+    @JoinColumn(name = "cage_id")
+    private List<Cage> cage;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)

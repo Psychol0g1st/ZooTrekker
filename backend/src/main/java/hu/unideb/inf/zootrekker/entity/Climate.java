@@ -1,6 +1,5 @@
 package hu.unideb.inf.zootrekker.entity;
 
-import hu.unideb.inf.zootrekker.enums.EWeekdays;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,38 +8,32 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="animal_diet")
-public class AnimalDiet {
+@Table(name = "climate")
+public class Climate {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_substance_Id", referencedColumnName = "id")
-    private Substance substance;
-
-    private String weekdays;
-
-    /*
-     ;-vel elválasztva
-     */
-    private String hours;
-
-    private Float amount;
-
     @CreationTimestamp
-    @Column(name="created_at", updatable = false, nullable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createdAt;
 
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
+
+    private Float humidity;
+
+    private Float temperature;
+
+    @Column(unique = true)
+    private String name;
 }

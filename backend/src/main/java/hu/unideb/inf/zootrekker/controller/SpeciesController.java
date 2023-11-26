@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/species")
+@CrossOrigin
 public class SpeciesController {
     @Autowired private SpeciesService speciesService;
     @PostMapping("/add")
