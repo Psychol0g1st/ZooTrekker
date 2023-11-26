@@ -1,7 +1,4 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
 
 
 const DataTable = ({ data, columns, onRowEvent }) => {
@@ -17,9 +14,9 @@ const DataTable = ({ data, columns, onRowEvent }) => {
   // Assuming the data array has objects with consistent keys
 
   return (
-    <div className="table-responsive">
-        <div style={{ overflowX: 'auto' }}>
-            <table className="table table-striped">
+    <div className="flex-grow-1" style={{position: 'relative'}}>
+        <div style={{ overflowX: 'auto', position:'absolute', top: 0, left: 0, right:0, bottom: 0 }}>
+            <table className="table table-hover border">
                 <thead>
                     <tr>
                     {columns.map((column) => (

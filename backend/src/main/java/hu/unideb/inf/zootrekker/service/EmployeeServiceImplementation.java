@@ -3,6 +3,9 @@ package hu.unideb.inf.zootrekker.service;
 import hu.unideb.inf.zootrekker.classes.Login;
 import hu.unideb.inf.zootrekker.entity.Employee;
 import hu.unideb.inf.zootrekker.repository.EmployeeRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +37,12 @@ public class EmployeeServiceImplementation implements EmployeeService{
     }
 
     @Override
+    @Transactional
     public Employee updateEmployee(Employee employee, Long id) {
-        Optional<Employee> employeeToUpdate = employeeRepository.findById(id);
+        System.out.println(id);
+        System.out.println(employee);
+        Optional<Employee> employeeToUpdate = Optional.ofNullable(employeeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id)));
+        BeanUtils.copyProperties(employee, employeeToUpdate, "id");
         if (employeeToUpdate.isPresent())
             employee.setId(id);
         return employeeRepository.save(employee);

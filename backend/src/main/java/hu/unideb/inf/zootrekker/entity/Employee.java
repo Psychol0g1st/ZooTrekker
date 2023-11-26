@@ -61,6 +61,27 @@ public class Employee {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", lastLogin=" + lastLogin +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role=" + role +
+                ", position='" + position + '\'' +
+                ", salary=" + salary +
+                ", workDays='" + workDays + '\'' +
+                ", workStartHour='" + workStartHour + '\'' +
+                ", workEndHour='" + workEndHour + '\'' +
+                ", cage=" + cage +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    
+    }
 }
 //ADMIN USER
 /*

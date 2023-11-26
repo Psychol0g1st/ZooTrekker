@@ -1,4 +1,4 @@
-import {ReactComponent as Logo} from '../icons/LOGO.svg'
+import logo from '../icons/LOGO.svg'
 
 
 export default function Sidebar() {
@@ -7,8 +7,10 @@ export default function Sidebar() {
         window.location.href = '/login';
     };
     return(
-        <ul className="nav flex-column ">
-            <a className="nav-brand" href="/"><Logo/></a>
+        <ul className="nav flex-column border bg-light">
+            <a className="nav-brand" style={{height: '56px'}} href="/">
+                <img src={logo} alt="logo" style={{height: '56px'}}/>
+            </a>
             <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="/employees">
                     <button type="button" className="btn btn-secondary">Dolgozók</button>

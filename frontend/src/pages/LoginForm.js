@@ -21,7 +21,7 @@ const LoginForm = ({ onLogin }) => {
             console.log(response);
             if(response?.data){
                 const user = {...response.data};
-                localStorage.setItem('user', user);
+                localStorage.setItem('user', JSON.stringify(user));
                 window.location.href = '/';
             } else {
                 alert('Hibás felhasználónév vagy jelszó!');
