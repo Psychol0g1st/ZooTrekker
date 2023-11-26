@@ -1,5 +1,6 @@
 package hu.unideb.inf.zootrekker.service;
 
+import hu.unideb.inf.zootrekker.classes.Login;
 import hu.unideb.inf.zootrekker.entity.Employee;
 import hu.unideb.inf.zootrekker.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,17 @@ public class EmployeeServiceImplementation implements EmployeeService{
     @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public Employee login(Login loginData) {
+        List<Employee> employees =  employeeRepository.findAll();
+        for (Employee employee : employees) {
+            if(employee.getUsername() == null || employee.getPassword() == null)
+                continue;
+            if (employee.getUsername().equals(loginData.username) && employee.getPassword().equals(loginData.password))
+                return employee;
+        }
+        return null;
     }
 }

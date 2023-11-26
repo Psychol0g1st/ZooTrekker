@@ -1,5 +1,6 @@
 package hu.unideb.inf.zootrekker.service;
 
+import hu.unideb.inf.zootrekker.classes.Login;
 import hu.unideb.inf.zootrekker.entity.Auth;
 import hu.unideb.inf.zootrekker.entity.Auth;
 import hu.unideb.inf.zootrekker.entity.Auth;
@@ -55,4 +56,5 @@ public class AuthServiceImplementation implements AuthService{
     public void deleteAuthById(Long authId) {
         authRepository.deleteById(authId);
     }
+
 }

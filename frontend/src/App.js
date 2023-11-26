@@ -13,9 +13,9 @@ import LoginForm from './pages/LoginForm';
 
 function App() {
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    console.log(token)
-    if (!token && window.location.pathname !== '/login') {
+    const user = localStorage.getItem('user');
+    console.log(user)
+    if (!user && window.location.pathname !== '/login') {
       window.location.href = '/login';
     }
   }, []);

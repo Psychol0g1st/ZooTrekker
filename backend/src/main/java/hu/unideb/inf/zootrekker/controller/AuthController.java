@@ -1,5 +1,6 @@
 package hu.unideb.inf.zootrekker.controller;
 
+import hu.unideb.inf.zootrekker.classes.Login;
 import hu.unideb.inf.zootrekker.entity.Auth;
 import hu.unideb.inf.zootrekker.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/auths")
 public class AuthController {
     @Autowired private AuthService authService;
@@ -17,6 +18,7 @@ public class AuthController {
     {
         return authService.saveAuth(auth);
     }
+
 
     @GetMapping("/get/{id}")
     public Auth getAuthById(@PathVariable("id") Long authId) {

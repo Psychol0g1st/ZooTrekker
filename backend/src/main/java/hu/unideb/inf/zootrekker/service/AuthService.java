@@ -1,5 +1,6 @@
 package hu.unideb.inf.zootrekker.service;
 
+import hu.unideb.inf.zootrekker.classes.Login;
 import hu.unideb.inf.zootrekker.entity.Auth;
 
 import java.util.List;

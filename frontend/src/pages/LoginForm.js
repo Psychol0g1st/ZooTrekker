@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 const LoginForm = ({ onLogin }) => {
-    const [login, setLogin] = useState('');
+    const [username, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
+        const user = localStorage.getItem('user');
+        if (user) {
             window.location.href = '/';
         }
     }, []);
@@ -16,12 +16,16 @@ const LoginForm = ({ onLogin }) => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
-            //TODO send login and password to server return token
-            // const response = await axios.post('/api/login', { login, password });
-            // const token = response.data.token;
-            const token = '1234567890';
-            localStorage.setItem('token', token);
-            window.location.href = '/';
+            console.log(username, password);
+            const response = await axios.post('http://localhost:8082/employees/login', { username, password });
+            console.log(response);
+            if(response?.data){
+                const user = {...response.data};
+                localStorage.setItem('user', user);
+                window.location.href = '/';
+            } else {
+                alert('Hibás felhasználónév vagy jelszó!');
+            }
         } catch (error) {
             console.error(error);
         }
@@ -34,8 +38,8 @@ const LoginForm = ({ onLogin }) => {
                     <Form.Label>Felhasználónév</Form.Label>
                     <Form.Control
                         type='text'
-                        name='login'
-                        value={login}
+                        name='username'
+                        value={username}
                         onChange={(e) => setLogin(e.target.value)}
                     />
                 </Form.Group>

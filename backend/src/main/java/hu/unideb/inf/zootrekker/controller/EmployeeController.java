@@ -1,5 +1,6 @@
 package hu.unideb.inf.zootrekker.controller;
 
+import hu.unideb.inf.zootrekker.classes.Login;
 import hu.unideb.inf.zootrekker.entity.Employee;
 import hu.unideb.inf.zootrekker.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @RequestMapping("/employees")
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
@@ -17,6 +18,12 @@ public class EmployeeController {
     @PostMapping("/add")
     public Employee saveEmployee(@RequestBody Employee employee) {
         return  employeeService.saveEmployee(employee);
+    }
+
+    @PostMapping("/login")
+    public Employee login(@RequestBody Login loginData)
+    {
+        return employeeService.login(loginData);
     }
 
     @GetMapping("/get/{id}")

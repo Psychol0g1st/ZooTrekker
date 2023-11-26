@@ -22,10 +22,16 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne
-    @JoinColumn(name = "auth_id", referencedColumnName = "id")
-    private Auth auth;
+//    @OneToOne
+//    @JoinColumn(name = "auth_id", referencedColumnName = "id")
+//    private Auth auth;
+    @Column(unique = true)
+    private String username;
 
+    private String password;
+
+    @Column(name = "last_login")
+    private Timestamp lastLogin;
     private String firstName;
 
     private String lastName;
@@ -56,3 +62,23 @@ public class Employee {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
 }
+//ADMIN USER
+/*
+{
+    "id": 0,
+    "username": "admin",
+    "password": "ZootrekkerAdmin",
+    "lastLogin": null,
+    "firstName": "Admin",
+    "lastName": "Admin",
+    "role": "Adminisztrátor",
+    "position": "Admin",
+    "salary": 0.0,
+    "workDays": "H-V",
+    "workStartHour": "24:00",
+    "workEndHour": "0:00",
+    "cage": [],
+    "createdAt": null,
+    "updatedAt": null
+}
+        */
