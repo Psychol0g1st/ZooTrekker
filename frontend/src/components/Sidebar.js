@@ -32,6 +32,11 @@ export default function Sidebar() {
                 </a>
             </li>
             <li className="nav-item">
+                <a className="nav-link" href="/climates">
+                    <button type="button" className="btn btn-secondary">Éghajlatok</button>
+                </a>
+            </li>
+            <li className="nav-item">
                 <a className="nav-link" href="/animaldiets">
                     <button type="button" className="btn btn-secondary">Étrend kezelés</button>
                 </a>

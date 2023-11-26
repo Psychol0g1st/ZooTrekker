@@ -6,12 +6,14 @@ import { deepCopy } from '../utils/deep-copy';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-const Allatfajok = () => {
+const Climates = () => {
   const [entities, setEntity] = useState([]);
   const [selectedEntity, setSelectedEntity] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const formDefinition = { // ures form az adott entitasnak
+  const formDefinition = {
     name: '',
+    temperature: 24.0,
+    humidity: 50.0,
   }
   const [formValues, setFormValues] = useState(deepCopy(formDefinition));
   const dataTableColumns = [
@@ -21,8 +23,16 @@ const Allatfajok = () => {
     },
     {
     key: 'name',
-    label: 'Faj megnevezése',
-    }
+    label: 'Éghajlat megnevezése',
+    },
+    {
+    key: 'temperature',
+    label: 'Hőmérséklet',
+    },
+    {
+    key: 'humidity',
+    label: 'Páratartalom',
+    },
   ]
   
   const openSidebar = () => {
@@ -44,12 +54,12 @@ const Allatfajok = () => {
         entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
       );
       setEntity(updatedEntities);
-      axios.put(`http://localhost:8082/species/update/` + formValues.id, formValues)
+      axios.put(`http://localhost:8082/climates/update/` + formValues.id, formValues)
     } else {
       // Create new entity
       const newEntity = { id: entities.length + 1, ...formValues };
       setEntity([...entities, newEntity]);
-      axios.post(`http://localhost:8082/species/add`, newEntity)
+      axios.post(`http://localhost:8082/climates/add`, newEntity)
     }
     closeSidebar();
   }
@@ -62,7 +72,7 @@ const Allatfajok = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8082/species/getall');
+        const response = await axios.get('http://localhost:8082/climates/getall');
         setEntity(response.data);
       } catch (error) {
         console.error(error);
@@ -74,7 +84,7 @@ const Allatfajok = () => {
   return (
     <Layout>
       <div className='d-flex'>
-        <h1>Állatfajok</h1>
+        <h1>Éghajlatok</h1>
         <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex">
@@ -97,7 +107,7 @@ const Allatfajok = () => {
                 <form>
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">
-                            Név
+                            Éghajlat megnevezése
                         </label>
                         <input
                         type="text"
@@ -105,6 +115,32 @@ const Allatfajok = () => {
                         id="name"
                         name="name"
                         value={formValues.name}
+                        onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="temperature" className="form-label">
+                            Hőmérséklet
+                        </label>
+                        <input
+                        type="number"
+                        className="form-control"
+                        id="temperature"
+                        name="temperature"
+                        value={formValues.temperature}
+                        onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="humidity" className="form-label">
+                            Páratartalom
+                        </label>
+                        <input
+                        type="number"
+                        className="form-control"
+                        id="humidity"
+                        name="humidity"
+                        value={formValues.humidity}
                         onChange={handleInputChange}
                         />
                     </div>
@@ -125,4 +161,4 @@ const Allatfajok = () => {
   );
 };
 
-export default Allatfajok;
+export default Climates;

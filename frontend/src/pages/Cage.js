@@ -6,12 +6,15 @@ import { deepCopy } from '../utils/deep-copy';
 
 const Ketrecek = () => {
   const [entities, setEntity] = useState([]);
+  const [climates, setClimates] = useState([]);
   const [selectedEntity, setSelectedEntity] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const formDefinition = { // ures form az adott entitasnak
     id: '',
-    firstName: '',
-    lastName: '',
+    name: '',
+    climateId: 0,
+    positionX: '',
+    positionY: '',
   }
   const [formValues, setFormValues] = useState(deepCopy(formDefinition));
   const dataTableColumns = [
@@ -24,7 +27,7 @@ const Ketrecek = () => {
         label: 'Név'
       },
       {
-          key: 'climate',
+          key: 'climate.name',
           label: 'Éghajlat',
       },
       {
@@ -50,40 +53,65 @@ const Ketrecek = () => {
     setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (selectedEntity) {
       const updatedEntities = entities.map((entity) =>
         entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
       );
+      if(formValues.climateId) {
+        formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
+        delete formValues.climateId;
+      }
       setEntity(updatedEntities);
-      axios.put(`http://localhost:8082/cages/update/` + formValues.id, formValues)
+      await axios.put(`http://localhost:8082/cages/update/` + formValues.id, formValues)
     } else {
       // Create new entity
       const newEntity = { id: entities.length + 1, ...formValues };
+      if(formValues.climateId) {
+        formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
+        delete formValues.climateId;
+      }
       setEntity([...entities, newEntity]);
-      axios.post(`http://localhost:8082/cages/add`, newEntity)
+      await axios.post(`http://localhost:8082/cages/add`, newEntity)
     }
+    console.log("save", formValues)
     closeSidebar();
   }
   const handleRowChange = (e) => {
+    e.climateId = e?.climate?.id ? e.climate.id : 0;
+    console.log("row change ", e);
     setSelectedEntity(e);
     setFormValues(e);
     openSidebar();
   }
 
   useEffect(() => {
+    console.log(formValues)
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8082/cages/getall');
         setEntity(response.data);
-        console.log(response.data)
+        console.log("data", response.data)
       } catch (error) {
         console.error(error);
       }
     };
-    console.log("fetch data")
+    const fetchClimates = async () => {
+      try {
+        const response = await axios.get('http://localhost:8082/climates/getall');
+        setClimates(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
     fetchData();
+    fetchClimates();
   }, []);
+
+  useEffect(() => {
+    console.log(formValues)
+  }, [formValues]);
+
 
   return (
     <Layout>
@@ -126,21 +154,27 @@ const Ketrecek = () => {
                     <label htmlFor="description" className="form-label">
                       Éghajlat
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="climate"
-                      name="climate"
-                      value={formValues.climate}
+                    <select
+                      className="form-select"
+                      id="climateId"
+                      name="climateId"
+                      value={formValues.climateId}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="">Válassz éghajlatot</option>
+                      {climates.map((climate) => (
+                        <option key={climate.id} value={climate.id}>
+                          {climate.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
+                    <label htmlFor="positionX" className="form-label">
                       Pozíció X
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="positionX"
                       name="positionX"
@@ -149,11 +183,11 @@ const Ketrecek = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
+                    <label htmlFor="positionY" className="form-label">
                       Pozíció Y
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="positionY"
                       name="positionY"

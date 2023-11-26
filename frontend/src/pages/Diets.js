@@ -76,12 +76,10 @@ const Etrendek = () => {
       try {
         const response = await axios.get('http://localhost:8082/animaldiets/getall');
         setEntity(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error(error);
       }
     };
-    console.log("fetch data")
     fetchData();
   }, []);
 

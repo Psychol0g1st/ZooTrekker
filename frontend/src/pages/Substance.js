@@ -36,7 +36,6 @@ const Substances = () => {
       try {
         const response = await axios.get('http://localhost:8082/substances/getall');
         setSubstances(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error(error);
       }

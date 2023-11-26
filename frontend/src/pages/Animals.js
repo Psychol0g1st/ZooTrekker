@@ -3,15 +3,27 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 import DataTable from '../components/DataTable';
 import { deepCopy } from '../utils/deep-copy';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Allatok = () => {
   const [entities, setEntity] = useState([]);
+  const [species, setSpecies] = useState([]);
+  const [climates, setClimates] = useState([]);
+  const [cages, setCages] = useState([]);
   const [selectedEntity, setSelectedEntity] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const formDefinition = { // ures form az adott entitasnak
     id: '',
-    firstName: '',
-    lastName: '',
+    name: '',
+    speciesId: '',
+    climateId: '',
+    cageId: '',
+    dateOfBirth: new Date().toISOString().slice(0, 10),
+    dateOfArrival: new Date().toISOString().slice(0, 10),
+    gender: '',
+    
+
   }
   const [formValues, setFormValues] = useState(deepCopy(formDefinition));
   const dataTableColumns = [
@@ -20,7 +32,7 @@ const Allatok = () => {
     label: 'ID',
     },
     {
-      key: 'species',
+      key: 'species.name',
       label: 'Faj',
     },
     {
@@ -32,7 +44,7 @@ const Allatok = () => {
       label: 'Nem',
     },
     {
-      key: 'climate',
+      key: 'climate.name',
       label: 'Éghajlat',
     },
     {
@@ -47,10 +59,10 @@ const Allatok = () => {
       key: 'dateOfArrival',
       label: 'Érkezésési dátum',
     },
-    {
-      key: 'healthRecords',
-      label: 'Egészségügyi nyilvántartások',
-    }
+    // {
+    //   key: 'healthRecords',
+    //   label: 'Egészségügyi nyilvántartások',
+    // }
   ]
 
   const openSidebar = () => {
@@ -64,24 +76,36 @@ const Allatok = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+
   };
 
   const handleSave = () => {
     if (selectedEntity) {
-      const updatedEntities = entities.map((entity) =>
-        entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
-      );
+      const updatedEntities = entities.map((entity) => {
+        const data = entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
+        if(data?.speciesId){
+          data.species = species.find(species => species.id === data.speciesId).name
+          delete data.speciesId
+        }
+
+        return data
+      });
       setEntity(updatedEntities);
       axios.put(`http://localhost:8082/animals/update/` + formValues.id, formValues)
     } else {
       // Create new entity
-      const newEntity = { id: entities.length + 1, ...formValues };
-      setEntity([...entities, newEntity]);
-      axios.post(`http://localhost:8082/animals/add`, newEntity)
+      const data = { id: entities.length + 1, ...formValues };
+      if(data?.speciesId){
+          data.species = species.find(species => species.id === data.speciesId).name
+          delete data.speciesId
+        }
+      setEntity([...entities, data]);
+      axios.post(`http://localhost:8082/animals/add`, data)
     }
     closeSidebar();
   }
   const handleRowChange = (e) => {
+    e.speciesId = e.species?.id
     setSelectedEntity(e);
     setFormValues(e);
     openSidebar();
@@ -96,15 +120,41 @@ const Allatok = () => {
         console.error(error);
       }
     };
-    console.log("fetch data")
+    const fetchSpeciesData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8082/species/getall');
+        setSpecies(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchClimatesData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8082/climates/getall');
+        setClimates(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    const fetchCagesData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8082/cages/getall');
+        setCages(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchSpeciesData();
     fetchData();
+    fetchClimatesData();
+    fetchCagesData();
   }, []);
 
   return (
     <Layout>
       <div className='d-flex'>
         <h1>Állatok</h1>
-        <button className='ms-auto btn btn-primary' onClick={openSidebar}>Új</button>
+        <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus} /></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex">
         <div className="col flex-grow-1 d-flex">
@@ -128,14 +178,45 @@ const Allatok = () => {
                     <label htmlFor="description" className="form-label">
                       Faj
                     </label>
-                    <input
+                    <select
+                      className="form-select"
+                      id="species"
+                      name="speciesId"
+                      value={formValues.speciesId}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Válassz egy fajt</option>
+                      {species.map((species) => (
+                        <option key={species.id} value={species.id}>
+                          {species.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                    <div className="mb-3">
+                      <label htmlFor="description" className='form-label'>Éghajlat</label> 
+                    <select
+                      className='form-select'
+                      id='climateId'
+                      name='climateId'
+                      value={formValues.climateId}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Válassz éghajlatot</option>
+                      {climates.map((climate) => (
+                        <option key={climate.id} value={climate.id}>
+                          {climate.name}
+                        </option>
+                      ))}
+                    </select>
+                    {/* <input
                       type="text"
                       className="form-control"
                       id="species"
                       name="species"
                       value={formValues.species}
                       onChange={handleInputChange}
-                    />
+                    /> */}
                   </div>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">
@@ -195,7 +276,7 @@ const Allatok = () => {
                       Születési dátum
                     </label>
                     <input
-                      type="text"
+                      type="date"
                       className="form-control"
                       id="dateOfBirth"
                       name="dateOfBirth"
@@ -208,7 +289,7 @@ const Allatok = () => {
                       Érkezésési dátum
                     </label>
                     <input
-                      type="text"
+                      type="date"
                       className="form-control"
                       id="dateOfArrival"
                       name="dateOfArrival"
@@ -216,7 +297,7 @@ const Allatok = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div className="mb-3">
+                  {/* <div className="mb-3">
                     <label htmlFor="fing" className="form-label">
                       Egészségügyi nyilvántartások
                     </label>
@@ -228,7 +309,7 @@ const Allatok = () => {
                       value={formValues.healthRecords}
                       onChange={handleInputChange}
                     />
-                  </div>
+                  </div> */}
                   <button
                     type="button"
                     className="btn btn-primary"

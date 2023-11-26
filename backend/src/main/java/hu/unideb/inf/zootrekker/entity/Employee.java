@@ -80,7 +80,7 @@ public class Employee {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
-    
+
     }
 }
 //ADMIN USER

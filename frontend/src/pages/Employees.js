@@ -3,6 +3,8 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 import DataTable from '../components/DataTable';
 import { deepCopy } from '../utils/deep-copy';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Dolgozok = () => {
   const [entities, setEntity] = useState([]);
@@ -107,12 +109,10 @@ const Dolgozok = () => {
       try {
         const response = await axios.get('http://localhost:8082/employees/getall');
         setEntity(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error(error);
       }
     };
-    console.log("fetch data")
     fetchData();
   }, []);
 
@@ -120,7 +120,7 @@ const Dolgozok = () => {
     <Layout>
       <div className='d-flex mb-3'>
         <h1>Dolgozók</h1>
-        <button className='ms-auto btn btn-primary' onClick={openSidebar}>Új</button>
+        <button className='ms-auto btn btn-primary' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex flex-column">
         <div className="row flex-grow-1">

@@ -5,9 +5,7 @@ import { isWorkingDay } from '../utils/working-day';
 
 export default function Home() {
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-    console.log(user)
     const days = user?.workDays?.split(',').map((day) => day.trim());
-    console.log(days)
     return(
         <Layout>
             <h2 className="text">Munkabeosztásod</h2>

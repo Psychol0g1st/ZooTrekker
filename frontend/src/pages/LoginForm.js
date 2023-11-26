@@ -16,9 +16,7 @@ const LoginForm = ({ onLogin }) => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(username, password);
             const response = await axios.post('http://localhost:8082/employees/login', { username, password });
-            console.log(response);
             if(response?.data){
                 const user = {...response.data};
                 localStorage.setItem('user', JSON.stringify(user));
