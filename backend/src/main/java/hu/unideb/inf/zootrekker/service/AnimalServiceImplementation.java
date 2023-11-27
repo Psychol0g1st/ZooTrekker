@@ -37,6 +37,7 @@ public class AnimalServiceImplementation  implements AnimalService{
         Optional<Animal> animalToUpdate = animalRepository.findById(id);
         if (animalToUpdate.isPresent())
             animal.setId(id);
+        System.out.println("Animal: " + animal);
 
         return animalRepository.save(animal);
     }

@@ -59,4 +59,20 @@ public class Animal {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "id=" + id +
+                ", species=" + species +
+                ", name='" + name + '\'' +
+                ", climate=" + climate +
+                ", cage=" + cage.getName() +
+                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfArrival=" + dateOfArrival +
+                ", gender=" + gender +
+                ", diet=" + diet +
+                ", healthRecords=" + healthRecords +
+                '}';
+    }
 }

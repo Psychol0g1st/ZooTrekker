@@ -24,7 +24,7 @@ const Allatok = () => {
     dietId: '',
     dateOfBirth: new Date().toISOString().slice(0, 10),
     dateOfArrival: new Date().toISOString().slice(0, 10),
-    gender: '',
+    gender: 'Hím',
     
 
   }
