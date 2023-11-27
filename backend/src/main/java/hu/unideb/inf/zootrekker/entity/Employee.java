@@ -92,7 +92,7 @@ public class Employee {
     "lastLogin": null,
     "firstName": "Admin",
     "lastName": "Admin",
-    "role": "Adminisztrátor",
+    "role": 0,
     "position": "Admin",
     "salary": 0.0,
     "workDays": "H-V",
