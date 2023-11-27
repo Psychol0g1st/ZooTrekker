@@ -54,17 +54,13 @@ const Allatok = () => {
     {
       key: 'dateOfBirth',
       label: 'Születési dátum',
-      type: 'date',
+      formatter: (value) => new Date(value).toLocaleDateString().substring(0, 10)
     },
     {
       key: 'dateOfArrival',
       label: 'Érkezésési dátum',
-      type: 'date',
+      formatter: (value) => new Date(value).toLocaleDateString().substring(0, 10)
     },
-    // {
-    //   key: 'healthRecords',
-    //   label: 'Egészségügyi nyilvántartások',
-    // }
   ]
 
   const openSidebar = () => {

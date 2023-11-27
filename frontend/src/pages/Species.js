@@ -38,18 +38,20 @@ const Allatfajok = () => {
     setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (selectedEntity) {
-      const updatedEntities = entities.map((entity) =>
-        entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
-      );
-      setEntity(updatedEntities);
-      axios.put(`http://localhost:8082/species/update/` + formValues.id, formValues)
+      const res = await axios.put(`http://localhost:8082/species/update/` + formValues.id, formValues)
+      if(res.status === 200) {
+        const updatedEntities = entities.map((entity) =>
+          entity.id === selectedEntity.id ? { ...entity, ...res.data } : entity
+        );
+        setEntity(updatedEntities);
+      }
     } else {
-      // Create new entity
-      const newEntity = { id: entities.length + 1, ...formValues };
-      setEntity([...entities, newEntity]);
-      axios.post(`http://localhost:8082/species/add`, newEntity)
+      const res = await axios.post(`http://localhost:8082/species/add`, formValues)
+      if(res.status === 200) {
+        setEntity([...entities, res.data]);
+      }
     }
     closeSidebar();
   }

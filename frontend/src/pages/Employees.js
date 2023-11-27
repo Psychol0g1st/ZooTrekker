@@ -84,17 +84,24 @@ const Dolgozok = () => {
     setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (selectedEntity) {
-      const updatedEntities = entities.map((entity) =>
-        entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
-      );
-      setEntity(updatedEntities);
-      axios.put(`http://localhost:8082/employees/update/` + formValues.id, formValues)
+      const res = await axios.put(`http://localhost:8082/employees/update/` + formValues.id, formValues)
+      if(res.status === 200) {
+        const updatedEntities = entities.map((entity) => {
+          if (entity.id === formValues.id) {
+            return formValues;
+          }
+          return entity;
+        });
+        setEntity(updatedEntities);
+      }
     } else {
-      const newEntity = { id: entities.length + 1, ...formValues };
-      setEntity([...entities, newEntity]);
-      axios.post(`http://localhost:8082/employees/add`, newEntity)
+      const res = await axios.post(`http://localhost:8082/employees/add`, formValues)
+      if(res.status === 200) {
+        const updatedEntities = [...entities, res.data];
+        setEntity(updatedEntities);
+      }
     }
     closeSidebar();
   }
@@ -132,7 +139,7 @@ const Dolgozok = () => {
     <Layout>
       <div className='d-flex mb-3'>
         <h1>Dolgozók</h1>
-        <button className='ms-auto btn btn-primary' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
+        <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex flex-column">
         <div className="row flex-grow-1">

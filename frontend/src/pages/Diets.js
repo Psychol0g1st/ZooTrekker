@@ -3,6 +3,8 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 import DataTable from '../components/DataTable';
 import { deepCopy } from '../utils/deep-copy';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Etrendek = () => {
   const [entities, setEntity] = useState([]);
@@ -10,8 +12,10 @@ const Etrendek = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const formDefinition = { // ures form az adott entitasnak
     id: '',
-    firstName: '',
-    lastName: '',
+    substanceId: '',
+    amount: '',
+    weekdays: '',
+    hours: '',
   }
   const [formValues, setFormValues] = useState(deepCopy(formDefinition));
   const dataTableColumns = [
@@ -20,8 +24,8 @@ const Etrendek = () => {
     label: 'ID',
     },
     {
-      key: 'substance',
-      label: 'Fogyasztási cikkek'
+      key: 'substance.name',
+      label: 'Fogyasztási cikk'
     },
     {
       key: 'amount',
@@ -66,6 +70,7 @@ const Etrendek = () => {
     closeSidebar();
   }
   const handleRowChange = (e) => {
+    e.substanceId = e?.substance?.id ? e?.substance?.id : 0;
     setSelectedEntity(e);
     setFormValues(e);
     openSidebar();
@@ -87,7 +92,7 @@ const Etrendek = () => {
     <Layout>
       <div className='d-flex'>
         <h1>Étrend kezelés</h1>
-        <button className='ms-auto btn btn-primary' onClick={openSidebar}>Új</button>
+        <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex">
         <div className="col flex-grow-1 d-flex">

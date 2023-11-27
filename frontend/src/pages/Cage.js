@@ -3,6 +3,8 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 import DataTable from '../components/DataTable';
 import { deepCopy } from '../utils/deep-copy';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Ketrecek = () => {
   const [entities, setEntity] = useState([]);
@@ -76,7 +78,6 @@ const Ketrecek = () => {
   }
   const handleRowChange = (e) => {
     e.climateId = e?.climate?.id ? e.climate.id : 0;
-    console.log("row change ", e);
     setSelectedEntity(e);
     setFormValues(e);
     openSidebar();
@@ -126,7 +127,7 @@ const Ketrecek = () => {
     <Layout>
       <div className='d-flex'>
         <h1>Ketrecek</h1>
-        <button className='ms-auto btn btn-primary' onClick={openSidebar}>Új</button>
+        <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex">
         <div className="col flex-grow-1 d-flex">
