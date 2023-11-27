@@ -10,7 +10,7 @@ export default function Navbar() {
                 <div className="d-flex w-100">
                     {user && (
                     <div className="nav-link ms-auto ">
-                        <a className="btn btn-primary " href={"/employee/" + user?.id}> <FontAwesomeIcon icon={faUser}/> {user?.firstName + " " + user?.lastName} </a>
+                        <a className="btn btn-brown " href={"/employee/" + user?.id}> <FontAwesomeIcon icon={faUser}/> {user?.firstName + " " + user?.lastName} </a>
                     </div>
                     )}
 
