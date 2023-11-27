@@ -18,11 +18,8 @@ const DataTable = ({ data, columns, onRowEvent }) => {
     }, row);
     const res = typeof value === 'object' ? JSON.stringify(value) : value
     if(formatter){
-      console.log(res)
-      console.log("formatter", formatter(res))
       return formatter(res);
-
-    } 
+    }
     return res;
   };
 

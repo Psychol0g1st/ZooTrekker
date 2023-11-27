@@ -8,6 +8,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Etrendek = () => {
   const [entities, setEntity] = useState([]);
+  const [substances, setSubstances] = useState([]);
   const [selectedEntity, setSelectedEntity] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const formDefinition = { // ures form az adott entitasnak
@@ -55,6 +56,10 @@ const Etrendek = () => {
   };
 
   const handleSave = () => {
+    if(formValues.substanceId) {
+      formValues.substance = substances.find((substance) => substance.id === parseInt(formValues.substanceId));
+      delete formValues.substanceId;
+    }
     if (selectedEntity) {
       const updatedEntities = entities.map((entity) =>
         entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
@@ -85,7 +90,16 @@ const Etrendek = () => {
         console.error(error);
       }
     };
+    const fetchSubstances = async () => {
+      try {
+        const response = await axios.get('http://localhost:8082/substances/getall');
+        setSubstances(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchData();
+    fetchSubstances();
   }, []);
 
   return (
@@ -102,7 +116,7 @@ const Etrendek = () => {
           <div className="ms-3 col-4">
             <div className="card">
               <div className="card-header">
-                {selectedEntity ? 'Edit Entity' : 'Create New Entity'}
+                {selectedEntity ? 'Szerkesztés' : 'Létrehozás'}
                 <button
                   type="button"
                   className="btn-close float-end"
@@ -114,23 +128,29 @@ const Etrendek = () => {
                 <form>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">
-                        Fogyasztási cikkek
+                        Fogyasztási cikk
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="substance"
-                      name="substance"
-                      value={formValues.substance}
+                    <select
+                      className="form-select"
+                      id="substanceId"
+                      name="substanceId"
+                      value={formValues.substanceId}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value=''>Válassz...</option>
+                      {substances.map((substance) => (
+                        <option key={substance.id} value={substance.id}>
+                          {substance.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="mb-3">
                     <label htmlFor="description" className="form-label">
                         Mennyiség
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="amount"
                       name="amount"

@@ -52,7 +52,7 @@ public class AnimalDietServiceImplementation implements AnimalDietService{
             ujAD.setSubstance(animalDiet.getSubstance());
         }
 
-        return new AnimalDiet();
+        return animalDietRepository.save(ujAD);
     }
 
     @Override

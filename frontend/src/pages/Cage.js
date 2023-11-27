@@ -84,12 +84,10 @@ const Ketrecek = () => {
   }
 
   useEffect(() => {
-    console.log(formValues)
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8082/cages/getall');
         setEntity(response.data);
-        console.log("data", response.data)
       } catch (error) {
         console.error(error);
       }
@@ -107,7 +105,6 @@ const Ketrecek = () => {
   }, []);
 
   useEffect(() => {
-    console.log(formValues)
   }, [formValues]);
  const handleDelete = async () => {
     try{

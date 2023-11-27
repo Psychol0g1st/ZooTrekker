@@ -90,7 +90,6 @@ const Allatok = () => {
       formValues.cage = cages.find(cage => cage.id === parseInt(formValues.cageId))
       delete formValues.cageId
     }
-    console.log(formValues)
     if (selectedEntity) {
       const res = await axios.put(`http://localhost:8082/animals/update/` + formValues.id, formValues)
       if(res.status === 200) {

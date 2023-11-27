@@ -21,7 +21,7 @@ public class AnimalDiet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_substance_Id", referencedColumnName = "id")
     private Substance substance;
 
