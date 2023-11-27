@@ -39,8 +39,7 @@ public class EmployeeServiceImplementation implements EmployeeService{
     @Override
     @Transactional
     public Employee updateEmployee(Employee employee, Long id) {
-        System.out.println(id);
-        System.out.println(employee);
+        System.out.println("Employee: " + employee);
         Optional<Employee> employeeToUpdate = Optional.ofNullable(employeeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id)));
         BeanUtils.copyProperties(employee, employeeToUpdate, "id");
         if (employeeToUpdate.isPresent())

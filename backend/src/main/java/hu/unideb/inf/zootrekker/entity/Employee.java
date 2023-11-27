@@ -48,9 +48,9 @@ public class Employee {
 
     private String workEndHour;
 
-    @ManyToMany( fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "cage_id")
-    private List<Cage> cage;
+    private Cage cage;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)

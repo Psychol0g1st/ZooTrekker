@@ -5,12 +5,14 @@ import DataTable from '../components/DataTable';
 import { deepCopy } from '../utils/deep-copy';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Gender } from '../enums/gender';
 
 const Allatok = () => {
   const [entities, setEntity] = useState([]);
   const [species, setSpecies] = useState([]);
   const [climates, setClimates] = useState([]);
   const [cages, setCages] = useState([]);
+  const [diets, setDiets] = useState([]);
   const [selectedEntity, setSelectedEntity] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const formDefinition = { // ures form az adott entitasnak
@@ -19,6 +21,7 @@ const Allatok = () => {
     speciesId: '',
     climateId: '',
     cageId: '',
+    dietId: '',
     dateOfBirth: new Date().toISOString().slice(0, 10),
     dateOfArrival: new Date().toISOString().slice(0, 10),
     gender: '',
@@ -50,6 +53,10 @@ const Allatok = () => {
     {
       key: 'cage.name',
       label: 'Ketrec',
+    },
+    {
+      key: 'diet.substance.name',
+      label: 'Táplálék',
     },
     {
       key: 'dateOfBirth',
@@ -90,6 +97,10 @@ const Allatok = () => {
       formValues.cage = cages.find(cage => cage.id === parseInt(formValues.cageId))
       delete formValues.cageId
     }
+    if(formValues?.dietId){
+      formValues.diet = diets.find(diet => diet.id === parseInt(formValues.dietId))
+      delete formValues.dietId
+    }
     if (selectedEntity) {
       const res = await axios.put(`http://localhost:8082/animals/update/` + formValues.id, formValues)
       if(res.status === 200) {
@@ -110,6 +121,7 @@ const Allatok = () => {
     e.speciesId = e.species?.id
     e.climateId = e.climate?.id
     e.cageId = e.cage?.id
+    e.dietId = e.diet?.id
     setSelectedEntity(e);
     setFormValues(e);
     openSidebar();
@@ -148,10 +160,20 @@ const Allatok = () => {
         console.error(error);
       }
     }
+    const fetchDietsData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8082/animaldiets/getall');
+        setDiets(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
     fetchSpeciesData();
     fetchData();
     fetchClimatesData();
     fetchCagesData();
+    fetchDietsData();
   }, []);
 
   const handleDelete = async () => {
@@ -224,19 +246,24 @@ const Allatok = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div className="mb-3">
-                    <label htmlFor="value" className="form-label">
-                      Nem
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="gender"
-                      name="gender"
-                      value={formValues.gender}
-                      onChange={handleInputChange}
-                    />
-                  </div>
+                  <div className='mb-3'>
+                        <label htmlFor="type" className="form-label">
+                            Nem
+                        </label>
+                        <select 
+                        className="form-select"
+                        id="type"
+                        name="type"
+                        value={formValues.gender}
+                        onChange={handleInputChange}
+                        >
+                            {Object.keys(Gender).map((key) => (
+                                  <option key={Gender[key]} value={Gender[key]}>
+                                      {Gender[key]}
+                                  </option>
+                              ))}
+                        </select>
+                    </div>
                   <div className="mb-3">
                       <label htmlFor="description" className='form-label'>Éghajlat</label> 
                     <select
@@ -250,6 +277,25 @@ const Allatok = () => {
                       {climates.map((climate) => (
                         <option key={climate.id} value={climate.id}>
                           {climate.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="description" className="form-label">
+                      Válassz étrendet
+                    </label>
+                    <select
+                      className="form-select"
+                      id="diet"
+                      name="dietId"
+                      value={formValues.dietId}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Válassz étrendet</option>
+                      {diets.map((diet) => (
+                        <option key={diet.id} value={diet.id}>
+                          {diet.substance.name}
                         </option>
                       ))}
                     </select>

@@ -42,9 +42,9 @@ public class Animal {
 
     private EGender gender;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_diets_id", referencedColumnName = "id")
-    private List<AnimalDiet> diets;
+    private AnimalDiet diet;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_health_records_id", referencedColumnName = "id")

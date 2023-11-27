@@ -8,6 +8,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Dolgozok = () => {
   const [entities, setEntity] = useState([]);
+  const [cages, setCages] = useState([]);
   const [selectedEntity, setSelectedEntity] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const formDefinition = { // ures form az adott entitasnak
@@ -18,6 +19,7 @@ const Dolgozok = () => {
     password: '',
     role: '',
     position: '',
+    cageId: '',
     salary: '',
     workDays: '',
     workStartHour: '',
@@ -54,6 +56,10 @@ const Dolgozok = () => {
       label: 'Pozíció',
     },
     {
+      key: 'cage.name',
+      label: 'Ketrec',
+    },
+    {
       key: 'salary',
       label: 'Fizetés (Ft)',
     },
@@ -85,6 +91,12 @@ const Dolgozok = () => {
   };
 
   const handleSave = async () => {
+    if(formValues.cageId) {
+      const cage = cages.find((cage) => cage.id === parseInt(formValues.cageId));
+      formValues.cage = cage;
+      delete formValues.cageId;
+    }
+    console.log(formValues)
     if (selectedEntity) {
       const res = await axios.put(`http://localhost:8082/employees/update/` + formValues.id, formValues)
       if(res.status === 200) {
@@ -106,6 +118,7 @@ const Dolgozok = () => {
     closeSidebar();
   }
   const handleRowChange = (e) => {
+    e.cageId = e?.cage?.id ? e.cage.id : '';
     setSelectedEntity(e);
     setFormValues(e);
     openSidebar();
@@ -120,7 +133,16 @@ const Dolgozok = () => {
         console.error(error);
       }
     };
+    const fetchCages = async () => {
+      try {
+        const response = await axios.get('http://localhost:8082/cages/getall');
+        setCages(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
     fetchData();
+    fetchCages();
   }, []);
   const handleDelete = async (e) => {
     try{
@@ -237,6 +259,26 @@ const Dolgozok = () => {
                         value={formValues.position}
                         onChange={handleInputChange}
                       />
+                    </div>
+                    <div className='mb-3'>
+                      <label htmlFor="type" className="form-label">
+                        Ketrec
+                      </label>
+                      <select 
+                        className="form-select"
+                        id="cageId"
+                        name="cageId"
+                        value={formValues.cageId}
+                        onChange={handleInputChange}
+                      >
+                        <option value=''>Válassz...</option>
+                        {cages.map((cage) => (
+                          <option key={cage.id} value={cage.id}>
+                            {cage.name}
+                          </option>
+                        ))}
+                      </select> 
+
                     </div>
                     <div className="mb-3">
                       <label htmlFor="value" className="form-label">
