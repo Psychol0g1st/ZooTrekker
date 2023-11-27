@@ -139,7 +139,7 @@ const Dolgozok = () => {
     <Layout>
       <div className='d-flex mb-3'>
         <h1>Dolgozók</h1>
-        <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
+        <button className='ms-auto btn btn-brown icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex flex-column">
         <div className="row flex-grow-1">

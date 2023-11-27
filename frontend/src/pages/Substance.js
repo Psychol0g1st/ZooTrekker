@@ -105,7 +105,7 @@ const Substances = () => {
     <Layout>
       <div className='d-flex'>
         <h1>Fogyasztási cikkek</h1>
-        <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
+        <button className='ms-auto btn btn-brown icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus}/></button>
       </div>
       <div className="container-fluid flex-grow-1 d-flex">
         <div className="col flex-grow-1 d-flex">

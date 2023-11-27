@@ -11,7 +11,8 @@ import Allatfajok from './pages/Species';
 import LoginForm from './pages/LoginForm';
 import Climates from './pages/Climates';
 import Substances from './pages/Substance';
-
+import { Helmet } from 'react-helmet';
+import favicon from './favicon.ico';
 
 function App() {
   useEffect(() => {
@@ -20,7 +21,14 @@ function App() {
       window.location.href = '/login';
     }
   }, []);
+  document.title = 'ZooTrekker';
+
   return (
+    <div className="App">
+      <Helmet>
+        <link rel="icon" type="image/x-icon" href={favicon} />
+      </Helmet>
+      {/* További alkalmazáskód */}
     <BrowserRouter>
       <Routes>
         <Route path='/employees' element={<Dolgozok/>}/>
@@ -35,7 +43,9 @@ function App() {
         <Route element={<LoginForm />}/>
         <Route path="*" element={<h1>404</h1>} />
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+      </div>
+    
   )
 }
 
