@@ -29,7 +29,7 @@ public class Cage {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Climate climate;
 
     @Column(unique = true)
@@ -38,4 +38,8 @@ public class Cage {
     private Float positionX;
 
     private Float positionY;
+
+    public String toString() {
+        	return "Cage: " + this.name + " " + this.positionX + " " + this.positionY + " " + climate.toString();
+    }
 }

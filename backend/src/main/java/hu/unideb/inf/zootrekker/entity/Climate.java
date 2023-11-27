@@ -36,4 +36,8 @@ public class Climate {
 
     @Column(unique = true)
     private String name;
+
+    public String toString() {
+            	return "Climate: " + this.name + " " + this.temperature + " " + this.humidity;
+    }
 }

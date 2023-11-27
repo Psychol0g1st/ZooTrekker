@@ -55,24 +55,29 @@ const Ketrecek = () => {
 
   const handleSave = async () => {
     if (selectedEntity) {
+      if(formValues.climateId) {
+        formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
+        delete formValues.climateId;
+      }
       const updatedEntities = entities.map((entity) =>
         entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
       );
-      if(formValues.climateId) {
-        formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
-        delete formValues.climateId;
-      }
       setEntity(updatedEntities);
-      await axios.put(`http://localhost:8082/cages/update/` + formValues.id, formValues)
+      const res = await axios.put(`http://localhost:8082/cages/update/` + formValues.id, formValues)
+      if(res.status === 200) {
+        setEntity(res.data);
+      }
     } else {
       // Create new entity
-      const newEntity = { id: entities.length + 1, ...formValues };
       if(formValues.climateId) {
         formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
         delete formValues.climateId;
       }
-      setEntity([...entities, newEntity]);
-      await axios.post(`http://localhost:8082/cages/add`, newEntity)
+      const newEntity = { id: entities.length + 1, ...formValues };
+      const res = await axios.post(`http://localhost:8082/cages/add`, newEntity)
+      if(res.status === 200) {
+        setEntity([...entities, res.data]);
+      }
     }
     console.log("save", formValues)
     closeSidebar();

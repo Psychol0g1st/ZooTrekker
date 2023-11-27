@@ -17,6 +17,7 @@ public class CageServiceImplementation implements CageService {
 
     @Override
     public Cage saveCage(Cage cage) {
+        System.out.println(cage);
         return cageRepository.save(cage);
     }
 
@@ -48,6 +49,10 @@ public class CageServiceImplementation implements CageService {
 
             if (Objects.nonNull(cage.getPositionY())) {
                 updatedCage.setPositionY(cage.getPositionY());
+            }
+
+            if (Objects.nonNull(cage.getClimate())) {
+                updatedCage.setClimate(cage.getClimate());
             }
 
             // Save the updated cage to the repository
