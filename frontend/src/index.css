@@ -36,3 +36,8 @@ code {
   height: 54px;
 
 }
+.btn-brown{
+  background-color: #54300e!important;
+  border-color: #54300e!important;
+  color: var(--bs-white)!important;
+}
