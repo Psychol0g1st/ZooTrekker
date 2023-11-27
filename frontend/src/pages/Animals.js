@@ -54,10 +54,12 @@ const Allatok = () => {
     {
       key: 'dateOfBirth',
       label: 'Születési dátum',
+      type: 'date',
     },
     {
       key: 'dateOfArrival',
       label: 'Érkezésési dátum',
+      type: 'date',
     },
     // {
     //   key: 'healthRecords',
@@ -79,33 +81,40 @@ const Allatok = () => {
 
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    if(formValues?.speciesId){
+      formValues.species = species.find(species => species.id === parseInt(formValues.speciesId))
+      delete formValues.speciesId
+    }
+    if(formValues?.climateId){
+      formValues.climate = climates.find(climate => climate.id === parseInt(formValues.climateId))
+      delete formValues.climateId
+    }
+    if(formValues?.cageId){
+      formValues.cage = cages.find(cage => cage.id === parseInt(formValues.cageId))
+      delete formValues.cageId
+    }
+    console.log(formValues)
     if (selectedEntity) {
-      const updatedEntities = entities.map((entity) => {
-        const data = entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
-        if(data?.speciesId){
-          data.species = species.find(species => species.id === data.speciesId).name
-          delete data.speciesId
-        }
-
-        return data
-      });
-      setEntity(updatedEntities);
-      axios.put(`http://localhost:8082/animals/update/` + formValues.id, formValues)
+      const res = await axios.put(`http://localhost:8082/animals/update/` + formValues.id, formValues)
+      if(res.status === 200) {
+        const updatedEntities = entities.map((entity) =>
+        entity.id === selectedEntity.id ? { ...entity, ...res.data } : entity);
+        setEntity(updatedEntities);
+      }
     } else {
       // Create new entity
-      const data = { id: entities.length + 1, ...formValues };
-      if(data?.speciesId){
-          data.species = species.find(species => species.id === data.speciesId).name
-          delete data.speciesId
-        }
-      setEntity([...entities, data]);
-      axios.post(`http://localhost:8082/animals/add`, data)
+      const res = await axios.post(`http://localhost:8082/animals/add`, formValues)
+      if(res.status === 200){
+        setEntity([...entities, res.data]);
+      }
     }
     closeSidebar();
   }
   const handleRowChange = (e) => {
     e.speciesId = e.species?.id
+    e.climateId = e.climate?.id
+    e.cageId = e.cage?.id
     setSelectedEntity(e);
     setFormValues(e);
     openSidebar();
@@ -150,9 +159,23 @@ const Allatok = () => {
     fetchCagesData();
   }, []);
 
+  const handleDelete = async () => {
+    try{
+      const res = await axios.delete(`http://localhost:8082/animals/delete/` + formValues.id)
+      if(res.status === 200) {
+        const updatedEntities = entities.filter((entity) => entity.id !== selectedEntity.id);
+        setEntity(updatedEntities);
+        closeSidebar();
+      }
+    } catch (error) {
+      alert("Függőségek miatt nem lehet törölni!")
+      console.error(error);
+    }
+  }
+
   return (
     <Layout>
-      <div className='d-flex'>
+      <div className='d-flex mb-3'>
         <h1>Állatok</h1>
         <button className='ms-auto btn btn-primary icon' onClick={openSidebar}><FontAwesomeIcon icon={faPlus} /></button>
       </div>
@@ -193,31 +216,6 @@ const Allatok = () => {
                       ))}
                     </select>
                   </div>
-                    <div className="mb-3">
-                      <label htmlFor="description" className='form-label'>Éghajlat</label> 
-                    <select
-                      className='form-select'
-                      id='climateId'
-                      name='climateId'
-                      value={formValues.climateId}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Válassz éghajlatot</option>
-                      {climates.map((climate) => (
-                        <option key={climate.id} value={climate.id}>
-                          {climate.name}
-                        </option>
-                      ))}
-                    </select>
-                    {/* <input
-                      type="text"
-                      className="form-control"
-                      id="species"
-                      name="species"
-                      value={formValues.species}
-                      onChange={handleInputChange}
-                    /> */}
-                  </div>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">
                       Név
@@ -245,32 +243,41 @@ const Allatok = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
-                      Éghajlat
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="climate"
-                      name="climate"
-                      value={formValues.climate}
+                      <label htmlFor="description" className='form-label'>Éghajlat</label> 
+                    <select
+                      className='form-select'
+                      id='climateId'
+                      name='climateId'
+                      value={formValues.climateId}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="">Válassz éghajlatot</option>
+                      {climates.map((climate) => (
+                        <option key={climate.id} value={climate.id}>
+                          {climate.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  {/* TODO
-                   <div className="mb-3">
-                    <label htmlFor="" className="form-label">
+                  <div className="mb-3">
+                    <label htmlFor="description" className="form-label">
                       Ketrec
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cage.name"
-                      name="cage.name"
-                      value={formValues.cage.name}
+                    <select
+                      className="form-select"
+                      id="cage"
+                      name="cageId"
+                      value={formValues.cageId}
                       onChange={handleInputChange}
-                    />
-                  </div>  */}
+                    >
+                      <option value="">Válassz ketrecet</option>
+                      {cages.map((cage) => (
+                        <option key={cage.id} value={cage.id}>
+                          {cage.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <div className="mb-3">
                     <label htmlFor="date" className="form-label">
                       Születési dátum
@@ -297,26 +304,24 @@ const Allatok = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  {/* <div className="mb-3">
-                    <label htmlFor="fing" className="form-label">
-                      Egészségügyi nyilvántartások
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="healthRecords"
-                      name="healthRecords"
-                      value={formValues.healthRecords}
-                      onChange={handleInputChange}
-                    />
-                  </div> */}
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleSave}
-                  >
-                    Save
-                  </button>
+                  <div className='d-flex'>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleSave}
+                    >
+                      Save
+                    </button>
+                    {selectedEntity && (
+                      <button
+                        type="button"
+                        className="btn btn-danger ms-auto"
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>

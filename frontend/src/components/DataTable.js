@@ -6,7 +6,7 @@ const DataTable = ({ data, columns, onRowEvent }) => {
     onRowEvent(entity);
   };
 
-  const renderCellValue = (row, key) => {
+  const renderCellValue = (row, key, type) => {
     const keys = key.split('.');
 
     // Recursively traverse the nested keys
@@ -16,7 +16,7 @@ const DataTable = ({ data, columns, onRowEvent }) => {
       }
       return undefined;
     }, row);
-    
+    if(type === 'date') return new Date(value).toLocaleDateString().substring(0,10)
     const res = typeof value === 'object' ? JSON.stringify(value) : value
     return res;
   };
@@ -41,7 +41,7 @@ const DataTable = ({ data, columns, onRowEvent }) => {
               <tr key={rowIndex} onClick={() => handleRowClick(row)}>
                 {columns.map((column, columnIndex) => (
                   <td key={columnIndex}>
-                    {renderCellValue(row, column.key)}
+                    {renderCellValue(row, column.key, column?.type)}
                   </td>
                 ))}
               </tr>

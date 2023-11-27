@@ -115,6 +115,18 @@ const Dolgozok = () => {
     };
     fetchData();
   }, []);
+  const handleDelete = async (e) => {
+    try{
+      const res = await axios.delete(`http://localhost:8082/employees/delete/` + e.id)
+      if(res.status === 200) {
+        const updatedEntities = entities.filter((entity) => entity.id !== e.id);
+        setEntity(updatedEntities);
+      }
+    } catch (error) {
+      alert('Nem lehet törölni a dolgozót, mert van hozzá rendelve ketrec!');
+      console.error(error);
+    }
+  }
 
   return (
     <Layout>
@@ -284,6 +296,7 @@ const Dolgozok = () => {
                         onChange={handleInputChange}
                       />
                     </div> */}
+                    <div className='d-flex'>
                     <button
                       type="button"
                       className="btn btn-primary"
@@ -291,6 +304,16 @@ const Dolgozok = () => {
                     >
                       Save
                     </button>
+                    {selectedEntity && (
+                      <button
+                        type="button"
+                        className="btn btn-danger ms-auto"
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
                   </form>
                 </div>
               </div>

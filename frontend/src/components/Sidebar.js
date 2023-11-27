@@ -42,6 +42,11 @@ export default function Sidebar() {
                 </a>
             </li>
             <li className="nav-item">
+                <a className="nav-link" href="/substances">
+                    <button type="button" className="btn btn-secondary">Fogyasztási cikkek</button>
+                </a>
+            </li>
+            <li className="nav-item">
                 <div className="nav-link">
                     <button type="button" onClick={handleLogout} className="btn btn-secondary">Kijelentkezés</button>
                 </div>

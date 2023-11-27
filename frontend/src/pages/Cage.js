@@ -54,32 +54,24 @@ const Ketrecek = () => {
   };
 
   const handleSave = async () => {
+    if(formValues.climateId) {
+      formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
+      delete formValues.climateId;
+    }
     if (selectedEntity) {
-      if(formValues.climateId) {
-        formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
-        delete formValues.climateId;
-      }
-      const updatedEntities = entities.map((entity) =>
-        entity.id === selectedEntity.id ? { ...entity, ...formValues } : entity
-      );
-      setEntity(updatedEntities);
       const res = await axios.put(`http://localhost:8082/cages/update/` + formValues.id, formValues)
       if(res.status === 200) {
-        setEntity(res.data);
+        const updatedEntities = entities.map((entity) =>
+          entity.id === selectedEntity.id ? { ...entity, ...res.data } : entity
+        );
+        setEntity(updatedEntities);
       }
     } else {
-      // Create new entity
-      if(formValues.climateId) {
-        formValues.climate = climates.find((climate) => climate.id === parseInt(formValues.climateId));
-        delete formValues.climateId;
-      }
-      const newEntity = { id: entities.length + 1, ...formValues };
-      const res = await axios.post(`http://localhost:8082/cages/add`, newEntity)
+      const res = await axios.post(`http://localhost:8082/cages/add`, formValues)
       if(res.status === 200) {
         setEntity([...entities, res.data]);
       }
     }
-    console.log("save", formValues)
     closeSidebar();
   }
   const handleRowChange = (e) => {
@@ -116,7 +108,19 @@ const Ketrecek = () => {
   useEffect(() => {
     console.log(formValues)
   }, [formValues]);
-
+ const handleDelete = async () => {
+    try{
+      const res = await axios.delete(`http://localhost:8082/cages/delete/` + formValues.id)
+        if(res.status === 200) {
+          const updatedEntities = entities.filter((entity) => entity.id !== selectedEntity.id);
+          setEntity(updatedEntities);
+          closeSidebar();
+        }
+    } catch (error) {
+      alert("Nem lehet törölni, mert van állat a ketrecben!")
+      console.error(error);
+    }
+  }
 
   return (
     <Layout>
@@ -167,7 +171,7 @@ const Ketrecek = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Válassz éghajlatot</option>
-                      {climates.map((climate) => (
+                      {climates?.map((climate) => (
                         <option key={climate.id} value={climate.id}>
                           {climate.name}
                         </option>
@@ -200,13 +204,24 @@ const Ketrecek = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleSave}
-                  >
-                    Save
-                  </button>
+                  <div className='d-flex'>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleSave}
+                    >
+                      Save
+                    </button>
+                    {selectedEntity && (
+                      <button
+                        type="button"
+                        className="btn btn-danger ms-auto"
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>

@@ -28,7 +28,12 @@ const Substances = () => {
     }
   ]
 
-  const formDefinition = {}
+  const formDefinition = {
+    type: '',
+    name: '',
+    unit: '',
+    stock: '',
+  }
 
 
   useEffect(() => {
@@ -47,7 +52,7 @@ const Substances = () => {
   return (
     <Layout>
       <h1>Fogyasztási cikkek</h1>
-      <DataTable data={substances} columns={dataTableColumns} formDefinition={formDefinition}/>
+      <DataTable data={substances} columns={dataTableColumns}/>
     </Layout>
   );
 };

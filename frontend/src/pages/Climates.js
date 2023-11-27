@@ -81,6 +81,19 @@ const Climates = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (e) => {
+    try{
+      const res = await axios.delete(`http://localhost:8082/climates/delete/` + e.id)
+      if(res.status === 200) {
+        const updatedEntities = entities.filter((entity) => entity.id !== e.id);
+        setEntity(updatedEntities);
+      }
+    }catch(error){
+      alert("Nem lehet törölni, használatban van!")
+      console.error(error);
+    }
+  }
+
   return (
     <Layout>
       <div className='d-flex'>
@@ -144,13 +157,24 @@ const Climates = () => {
                         onChange={handleInputChange}
                         />
                     </div>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleSave}
-                  >
-                    Save
-                  </button>
+                  <div className='d-flex'>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleSave}
+                    >
+                      Save
+                    </button>
+                    {selectedEntity && (
+                      <button
+                        type="button"
+                        className="btn btn-danger ms-auto"
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>

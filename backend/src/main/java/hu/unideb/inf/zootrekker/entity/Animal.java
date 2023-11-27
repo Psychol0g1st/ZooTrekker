@@ -22,17 +22,17 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "fk_species_id", referencedColumnName = "id")
     private Species species;
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "fk_climate_id", referencedColumnName = "id")
     private Climate climate;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "fk_cage_id", referencedColumnName = "id")
     private Cage cage;
 

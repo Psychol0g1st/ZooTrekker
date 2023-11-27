@@ -10,6 +10,7 @@ import Ketrecek from './pages/Cage'
 import Allatfajok from './pages/Species';
 import LoginForm from './pages/LoginForm';
 import Climates from './pages/Climates';
+import Substances from './pages/Substance';
 
 
 function App() {
@@ -25,15 +26,14 @@ function App() {
         <Route path='/employees' element={<Dolgozok/>}/>
         <Route path='/animals' element={<Allatok/>}/>
         <Route path='/animaldiets' element={<Etrendek/>}/>
+        <Route path='/substances' element={<Substances/>}/>
         <Route path='/cages' element={<Ketrecek/>}/>
         <Route path='/species' element={<Allatfajok/>}/>
         <Route path='/climates' element={<Climates/>}/>
         <Route path='/login' element={<LoginForm/>}/>
         <Route index path="/" element={<Home />}/>
         <Route element={<LoginForm />}/>
-          {/* <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} /> */}
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
   )
