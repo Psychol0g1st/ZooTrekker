@@ -7,7 +7,7 @@ export default function Sidebar() {
         window.location.href = '/login';
     };
     return(
-        <ul className="nav flex-column border bg-light">
+        <ul className="nav flex-column align-items-start border bg-light">
             <a className="nav-brand" style={{height: '56px'}} href="/">
                 <img src={logo} alt="logo" style={{height: '56px'}}/>
             </a>

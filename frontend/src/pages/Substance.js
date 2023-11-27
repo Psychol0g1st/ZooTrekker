@@ -13,7 +13,7 @@ const Substances = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   const formDefinition = { 
-    type: '',
+    type: 'Étel',
     name: '',
     unit: '',
     stock: '',
